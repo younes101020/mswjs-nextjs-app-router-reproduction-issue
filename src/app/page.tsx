@@ -2,21 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-async function enableMocking() {
-  const { worker } = await import("./mocks/browser");
-  return worker.start();
-}
-
-export default function Home() {
-  return <Todo />;
-}
-
-type TodoType = {
-  title: string;
-};
-
-function Todo() {
-  const [todo, setTodo] = useState<TodoType>();
+export default function App() {
+  const [todo, setTodo] = useState<Todo>();
   console.log("Todo component rendered", todo);
 
   useEffect(() => {
@@ -35,4 +22,15 @@ function Todo() {
       <p>Todo: {todo?.title}</p>
     </div>
   );
+}
+
+async function enableMocking() {
+  const { worker } = await import("./mocks/browser");
+  return worker.start();
+}
+
+interface Todo {
+  type: string;
+  title: string;
+  timestamp: string;
 }
